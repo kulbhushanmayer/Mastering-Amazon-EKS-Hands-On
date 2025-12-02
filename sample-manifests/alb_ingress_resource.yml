@@ -1,0 +1,29 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: demo-alb-ingress
+  namespace: alb-ingres-controller-demo
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/subnets: subnet-0438cb26b1e4950e5, subnet-021f703c84ac65677, subnet-06cec28f61936c479
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/backend-protocol: HTTP
+spec:
+  ingressClassName: alb
+  rules:
+    - http:
+        paths:
+          - path: /participate
+            pathType: Prefix
+            backend:
+              service:
+                name: participate
+                port:
+                  number: 80
+          - path: /submissions
+            pathType: Prefix
+            backend:
+              service:
+                name: submissions
+                port:
+                  number: 80

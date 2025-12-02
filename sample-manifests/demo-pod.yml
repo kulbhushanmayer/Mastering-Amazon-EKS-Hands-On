@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: demo-1
+spec: 
+  containers: 
+    - name: httpd
+      image: httpd:latest
+  tolerations:
+    - key: nodegroup
+      operator: Equal
+      value: demo-nodegroup-1
+      effect: NoSchedule

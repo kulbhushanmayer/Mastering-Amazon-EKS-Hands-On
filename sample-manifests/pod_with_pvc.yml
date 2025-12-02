@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: demo-pvc-with-ebs-csi
+spec:
+  volumes: 
+    - name: demo-vol
+      persistentVolumeClaim:
+        claimName: demo-pvc
+  containers:
+    - name: demo
+      volumeMounts:
+        - name: demo-vol
+          mountPath: /opt
+      image: ubuntu:24.04
+      command:
+        - sh
+        - -c
+        - while date; do echo "Hi at `date`" >> /opt/demo.out; sleep 30; done
+
